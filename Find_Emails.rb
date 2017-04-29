@@ -1,4 +1,3 @@
-#get_emails.rb
 require 'rubygems'
 require 'open-uri'
 require 'nokogiri'
@@ -20,7 +19,7 @@ class Scrape
 
   def initialize
     @urlCounter = 0
-    @serpNum = 2
+    @serpNum = 1
     @killCounter = 0
     @wpHook = "powered+by+wordpress"
     @randomAgent = ['Mac Mozilla', 'Linux Mozilla', 'Linux Firefox', 'Windows Mozilla', 'Linux Konqueror' ]
@@ -116,6 +115,13 @@ class Scrape
     email = email.gsub(/href=/, "")
     email = email.gsub(/mailto:/, "")
     email = email.gsub(/href=/, "")
+    email = email.gsub(/value=/, "")
+    email = email.gsub(/content=/, "")
+    email = email.gsub(/title=/, "")
+    email = email.gsub(/class=/, "")
+    email = email.gsub(/email:/, "")
+    email = email.gsub(/"/, "")
+    email = email.gsub(/\A@.*/, "") #the magic line, right here
 	  #email = email.gsub!(/\A"|"\Z/, '')
     #email = email.gsub(/.../, "")
     email = email.gsub(/maps.*/, '')
@@ -190,6 +196,7 @@ class Scrape
   def remove_nil_emails()
     puts "remove_nil_emails() has been called!!!!"
     $emails.reject! { |s| s.to_s.nil? || s.to_s.strip.empty? } #changed this line
+    #want to insert a line below this one, getting rid of all the strings that start w/ "@****"
     puts "we are done looping!"
   end
 
@@ -203,9 +210,10 @@ class Scrape
     end
   end 
 
-  def remove_dups()
-    puts "remove_dups() has been called"
-    $emails = $emails.uniq
+  def email_purge()
+    puts "email_purge() has been called!!!!"
+    $emails.reject! { |item| item.to_s.start_with?(' ') }
+    #$emails.reject! { |item| item.to_s.is_equal?(nil) }
   end
 
 end #of class definition
@@ -226,10 +234,10 @@ puts "the clean version of the emails are... "
 puts "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
 
 dude.clean_all_emails()
+#dude.email_purge()
 dude.remove_nil_emails()
-dude.remove_dups() #just added
 
 dude.clean_vomit()
 
-#we need to do a better job at 
+
 #we need a method to remove duplicates
