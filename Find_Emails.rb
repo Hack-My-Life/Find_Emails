@@ -64,7 +64,9 @@ class Scrape
   end
 
   def find_emails(industryString)
-    #This is the main call
+  #-------------------------------------------------------------------------------------
+  #This is the main call
+  #-------------------------------------------------------------------------------------
     collection = find_leads(industryString)
     #seems that collection is not a real array
     puts "The collection variable is of type array, right? " + collection.is_a?(Array).to_s
@@ -74,8 +76,10 @@ class Scrape
   end
 
   def find_leads(industryString)
-    # something strange going on with the end statments in this method
-    # seems to be working, but indentation is def off
+    #-------------------------------------------------------------------------------------
+    #Based on an industry string, such as "dental whiting" will find a list of sites to 
+    #search based on Google Search Results. Uses @serpNum to determine how SERPs to crawl
+    #-------------------------------------------------------------------------------------
     agent = Mechanize.new
     agent.user_agent_alias = agent_randomize()
     for current_iteration_number in 1..@serpNum do
@@ -110,7 +114,12 @@ class Scrape
 
 
   def email_clean(email)
-	  email = email.gsub(/<.*/, "")
+    #-------------------------------------------------------------------------------------
+    #uses a series of regex-based .gsub calls to remove false positives from email list
+    #also removes extra characters around good email addresses. We can chain these and
+    #put the call all on a single line.
+    #-------------------------------------------------------------------------------------
+    email = email.gsub(/<.*/, "")
     email = email.gsub(/>.*/, "")
     email = email.gsub(/href=/, "")
     email = email.gsub(/mailto:/, "")
@@ -121,13 +130,9 @@ class Scrape
     email = email.gsub(/class=/, "")
     email = email.gsub(/email:/, "")
     email = email.gsub(/"/, "")
-    email = email.gsub(/\A@.*/, "") #the magic line, right here
-	  #email = email.gsub!(/\A"|"\Z/, '')
-    #email = email.gsub(/.../, "")
+    email = email.gsub(/\A@.*/, "") #removes strings that start with "@"
     email = email.gsub(/maps.*/, '')
-	  #email = email.delete('"')
-    #some are nil class, so it does not like this
-	  return email
+    return email
   end
 
   def scrape_urls(urls)
@@ -143,13 +148,16 @@ class Scrape
   end
 
   def has_email?(listingUrl)
-  	#change this to hasEmail
+  #-------------------------------------------------------------------------------------
+  #Given a URL, this method will scape a certain number of pages on that site, looking
+  #for an email address. That number is related to @killCounter.
+  #-------------------------------------------------------------------------------------
    hasListing = false
    Anemone.crawl(listingUrl) do |anemone|
     anemone.on_every_page do |page| #need to limit this to first 20
       puts "now crawling page " + @killCounter.to_s
       @killCounter += 1 
-      if @killCounter > 8 ##########################################################################
+      if @killCounter > 8 #Need to create a class variable for this numer that we can edit at the top of the file
        @killCounter = 0
         puts "The current value of hasListing is ..."
         puts hasListing
@@ -226,9 +234,7 @@ puts ".........................."
 puts "The emails in the list are"
 puts ".........................."
 
-
 dude.email_vomit() #WORKING!!!
-
 puts ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 puts "the clean version of the emails are... "
 puts "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
@@ -236,8 +242,6 @@ puts "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
 dude.clean_all_emails()
 #dude.email_purge()
 dude.remove_nil_emails()
-
 dude.clean_vomit()
-
 
 #we need a method to remove duplicates
