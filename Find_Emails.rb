@@ -127,10 +127,15 @@ class Scrape
     email = email.gsub(/value=/, "")
     email = email.gsub(/content=/, "")
     email = email.gsub(/title=/, "")
+    email = email.gsub(/type=/, "")
     email = email.gsub(/class=/, "")
     email = email.gsub(/email:/, "")
+    email = email.gsub(/https?:/, "")
+    email = email.gsub(/www:/, "")
+    email = email.gsub(/google/, "")
     email = email.gsub(/"/, "")
-    email = email.gsub(/\A@.*/, "") #removes strings that start with "@"
+    email = email.gsub( /(?:\s|^)@.*/ , "") #removes strings that start with "@"
+    #email = email.gsub( /(?:\s|^){.*/ , "")
     email = email.gsub(/maps.*/, '')
     return email
   end
@@ -183,7 +188,7 @@ class Scrape
    return hasListing
   end
 
-  def email_vomit()
+  def email_display()
     puts "email_vomit() has been called!!!!"
   	$emails.each do |item|
       puts "we are now looping!"
@@ -208,7 +213,7 @@ class Scrape
     puts "we are done looping!"
   end
 
-  def clean_vomit()
+  def clean_email_display()
     puts "clean_vomit() has been called!!!!"
     #here's the extra line
     #$emails.reject! { |s| s.nil? || s.strip.empty? }
@@ -226,22 +231,4 @@ class Scrape
 
 end #of class definition
 
-
-dude = Scrape.new
-#dude.find_leads("whale watching")
-dude.find_emails("elephant watching")
-puts ".........................."
-puts "The emails in the list are"
-puts ".........................."
-
-dude.email_vomit() #WORKING!!!
-puts ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-puts "the clean version of the emails are... "
-puts "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
-
-dude.clean_all_emails()
-#dude.email_purge()
-dude.remove_nil_emails()
-dude.clean_vomit()
-
-#we need a method to remove duplicates
+#Extra function calls moved to Main.rb
