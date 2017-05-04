@@ -9,3 +9,5 @@ To minimize the chance of triggering HTTP Access Error's it is best to connect t
 Feel free to experiment with whatever VPN services you prefer. To get up and running quickly, you can try free account with [Tunnel Bear] It provides limited bandwidth, but is easy to get up and running and facilitates toggling endpoints between runs. 
 
 At this point, the code's main issues revolve around the fact that the output of emails printed to screen contains a good number of "false positives" (aka strings which do not contain email addresses) as well as email addresses which contain unnecessary extra characters appended to them. 
+
+We could also use help formatting this dock using markdown, as well as with the inclusion of versions on which the code has been tested and installation instructions.
