@@ -1,4 +1,4 @@
-require './Find_Emails.rb'
+require './find_emails.rb'
 
 dude = Scrape.new
 puts "Which industry would you like to search for emails?"  
