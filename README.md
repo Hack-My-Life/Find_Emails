@@ -18,9 +18,4 @@ We could also use help formatting this dock using markdown, as well as with the 
 
 Here are the gems that will have to installed to run main.rb
 
-rubygems
-open-uri
-nokogiri
-mechanize
-uri
-anemone
+rubygems, open-uri, nokogiri, mechanize, uri + anemone
