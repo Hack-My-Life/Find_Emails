@@ -11,3 +11,16 @@ Feel free to experiment with whatever VPN services you prefer. To get up and run
 At this point, the code's main issues revolve around the fact that the output of emails printed to screen contains a good number of "false positives" (aka strings which do not contain email addresses) as well as email addresses which contain unnecessary extra characters appended to them. 
 
 We could also use help formatting this dock using markdown, as well as with the inclusion of versions on which the code has been tested and installation instructions.
+
+---
+
+# Dependencies
+
+Here are the gems that will have to installed to run main.rb
+
+rubygems
+open-uri
+nokogiri
+mechanize
+uri
+anemone
