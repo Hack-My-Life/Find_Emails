@@ -8,7 +8,7 @@ require 'anemone'
 module Anemone
   class Core
     def kill_threads
-      @tentacles.each { |thread| 
+      @tentacles.each { |thread|
         Thread.kill(thread)  if thread.alive?
       }
     end
@@ -77,7 +77,7 @@ class Scrape
 
   def find_leads(industryString)
     #-------------------------------------------------------------------------------------
-    #Based on an industry string, such as "dental whiting" will find a list of sites to 
+    #Based on an industry string, such as "dental whiting" will find a list of sites to
     #search based on Google Search Results. Uses @serpNum to determine how SERPs to crawl
     #-------------------------------------------------------------------------------------
     agent = Mechanize.new
@@ -181,7 +181,7 @@ class Scrape
         $emailUrls[$anemoneCounter] = listingUrl
         $emails[$anemoneCounter] = matchOrNil
         $anemoneCounter += 1
-        hasListing = true 
+        hasListing = true
       end
     end
    end
@@ -221,7 +221,7 @@ class Scrape
       #puts "we are now looping!"
       puts email_clean(item.to_s)
     end
-  end 
+  end
 
   def email_purge()
     puts "email_purge() has been called!!!!"
@@ -229,6 +229,19 @@ class Scrape
     #$emails.reject! { |item| item.to_s.is_equal?(nil) }
   end
 
+  def dump_to_file(filename)
+	begin
+		file = File.open(filename, "w")
+		$emails.each do |item|
+			puts item.to_s
+			file.write(item.to_s)
+		end
+	rescue IOError => e
+		puts "Problem with writing to file"
+	ensure
+		file.close unless file.nil?
+	end
+  end
 end #of class definition
 
 #Extra function calls moved to Main.rb
