@@ -1,8 +1,5 @@
-require 'rubygems'
-require 'open-uri'
 require 'nokogiri'
 require 'mechanize'
-require 'uri'
 require 'anemone'
 
 module Anemone
