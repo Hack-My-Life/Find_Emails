@@ -27,14 +27,7 @@ At this point, the code's main issues revolve around the fact that the output of
 
 We could also use help formatting this dock using markdown, as well as with the inclusion of versions on which the code has been tested and installation instructions.
 
-# Dependencies
-
-Here are the gems that will have to installed to run main.rb
-
-Nokogiri, Mechanize and Anemone
-
-
 How to Run
-
+============
 ruby main.rb
 
